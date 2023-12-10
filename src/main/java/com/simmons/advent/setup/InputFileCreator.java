@@ -1,4 +1,4 @@
-package com.simmons.advent.utils;
+package com.simmons.advent.setup;
 
 import com.simmons.advent.error.NaughtyException;
 import java.io.File;
@@ -17,7 +17,6 @@ public class InputFileCreator {
 
   public static void main(String[] args) {
     for (int year = 2015; year < 2024; year++) {
-      createJavaFiles(year);
       createInputFiles(year);
     }
   }
@@ -48,6 +47,10 @@ public class InputFileCreator {
   }
 
   public static void createInputFiles(int year) {
+    File baseDir = new File(BASE_RESOURCE_PATH);
+    if (!baseDir.exists()) {
+      baseDir.mkdir();
+    }
     File directory = ensureDirectory(BASE_RESOURCE_PATH, "%d", year);
     for (int day = 1; day <= DAYS; day++) {
       ensureFile(directory, "day%02d.txt", day);
