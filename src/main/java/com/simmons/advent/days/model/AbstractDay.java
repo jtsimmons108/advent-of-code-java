@@ -32,6 +32,8 @@ public abstract class AbstractDay implements Day {
       } catch (NaughtyException e) {
         System.out.println(e.getMessage());
       }
+    } else {
+      System.out.println("Input file already downloaded");
     }
   }
 

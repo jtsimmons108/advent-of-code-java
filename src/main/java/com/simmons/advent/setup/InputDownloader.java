@@ -60,7 +60,7 @@ public class InputDownloader {
       String input = client.send(req, HttpResponse.BodyHandlers.ofString()).body();
       FileUtils.writeStringToFile(file, input, Charset.defaultCharset());
     } catch (Exception exception) {
-      throw new NaughtyException("Unable to donwnload file", exception);
+      throw new NaughtyException("Unable to download file", exception);
     }
   }
 }
