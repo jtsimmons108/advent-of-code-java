@@ -8,7 +8,6 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
 import lombok.Data;
 
 public class Day15_2022 extends AbstractDay {
@@ -20,10 +19,11 @@ public class Day15_2022 extends AbstractDay {
   public final int gridLimit;
   public static final int X_MULITPLIER = 4_000_000;
 
-  public Day15_2022(int gridLimit){
+  public Day15_2022(int gridLimit) {
     super(2022, 15);
     this.gridLimit = gridLimit;
   }
+
   public Day15_2022() {
     super(2022, 15);
     this.gridLimit = 4_000_000;
@@ -99,7 +99,7 @@ public class Day15_2022 extends AbstractDay {
     return Range.of(sensor.location.x - distRemaining, sensor.location.x + distRemaining + 1);
   }
 
-  private List<Range> getAllBlockedRanges(List<Sensor> sensors, long row){
+  private List<Range> getAllBlockedRanges(List<Sensor> sensors, long row) {
     List<Range> ranges = new ArrayList<>();
     for (Sensor sensor : sensors) {
       Range range = getBlockedXRangeFromSensor(sensor, row);
@@ -109,22 +109,23 @@ public class Day15_2022 extends AbstractDay {
     }
     return ranges;
   }
-  private List<Sensor> getSensorsFromInput(List<String> lines){
+
+  private List<Sensor> getSensorsFromInput(List<String> lines) {
     List<Sensor> sensors = new ArrayList<>();
     for (String line : lines) {
       Matcher matcher = LINE_PATTERN.matcher(line);
       if (matcher.matches()) {
         Point location =
-                new Point(Long.parseLong(matcher.group(1)), Long.parseLong(matcher.group(2)));
+            new Point(Long.parseLong(matcher.group(1)), Long.parseLong(matcher.group(2)));
         Point beacon =
-                new Point(Long.parseLong(matcher.group(3)), Long.parseLong(matcher.group(4)));
+            new Point(Long.parseLong(matcher.group(3)), Long.parseLong(matcher.group(4)));
         sensors.add(new Sensor(location, beacon));
       }
     }
     return sensors;
   }
 
-  private List<Range> mergeRanges(List<Range> ranges){
+  private List<Range> mergeRanges(List<Range> ranges) {
     ranges.sort(Comparator.comparingLong(r -> r.start));
     List<Range> merged = new ArrayList<>();
     merged.add(ranges.get(0));

@@ -8,7 +8,7 @@ public class DayRunner {
   public static final int DAYS = 25;
 
   public static void main(String[] args) {
-    runSingleDay(2022, 15, false);
+    runSingleDay(2023, 10, true);
   }
 
   public static void runSingleDay(int year, int day, boolean timed) {

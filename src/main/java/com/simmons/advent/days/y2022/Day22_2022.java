@@ -1,8 +1,8 @@
 package com.simmons.advent.days.y2022;
 
-import static com.simmons.advent.utils.GridUtils.*;
-
 import com.simmons.advent.days.model.AbstractDay;
+import com.simmons.advent.grid.Direction;
+import com.simmons.advent.grid.Location;
 import com.simmons.advent.models.RegexMatch;
 import com.simmons.advent.utils.InputUtils;
 import com.simmons.advent.utils.PatternUtils;
@@ -48,17 +48,6 @@ public class Day22_2022 extends AbstractDay {
         length = Integer.parseInt(val);
       }
 
-      System.out.println(
-          "Starting at "
-              + current
-              + " with value "
-              + getValueAtLocation(grid, current)
-              + " and then moving "
-              + length
-              + " "
-              + direction
-              + " then turning "
-              + turn);
       int steps = 0;
       Location next = getNextLocation(current, direction, grid);
       while (steps < length && getValueAtLocation(grid, next) != WALL) {
@@ -67,11 +56,7 @@ public class Day22_2022 extends AbstractDay {
         next = getNextLocation(current, direction, grid);
         steps++;
       }
-      if (steps == length) {
-        System.out.println("Walked " + steps + " steps in direction " + direction);
-      } else {
-        System.out.println("Hit wall after " + steps + " steps");
-      }
+
       if (turn != 'N') {
         direction = turn == 'L' ? direction.turnLeft() : direction.turnRight();
       } else {
