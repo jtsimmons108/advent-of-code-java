@@ -13,6 +13,17 @@ public class GridUtils {
     }
   }
 
+  public static boolean isValidLocation(Location location, char[][] grid) {
+    return 0 <= location.row
+        && location.row < grid.length
+        && 0 <= location.col
+        && location.col < grid[0].length;
+  }
+
+  public static char getValueFromLocation(Location location, char[][] grid) {
+    return grid[location.row][location.col];
+  }
+
   public static char[][] copyGrid(char[][] grid) {
     int rows = grid.length;
     int cols = grid[0].length;

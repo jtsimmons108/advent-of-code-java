@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 
 public class Day22_2022 extends AbstractDay {
 
-  public static char OPEN = '.';
   public static char WALL = '#';
   public static char INVALID = ' ';
 

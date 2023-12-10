@@ -61,7 +61,7 @@ public class Day10_2023 extends AbstractDay {
     while (path.isEmpty() || !path.get(path.size() - 1).equals(startLocation)) {
       Location next = currentLocation.next(currentDir);
       path.add(next);
-      currentDir = getNextDirection(currentDir, getValueFromLocation(next, grid));
+      currentDir = getNextDirection(currentDir, GridUtils.getValueFromLocation(next, grid));
       currentLocation = next;
     }
     return path;
@@ -109,12 +109,8 @@ public class Day10_2023 extends AbstractDay {
     return direction;
   }
 
-  private char getValueFromLocation(Location location, char[][] grid) {
-    return grid[location.row][location.col];
-  }
-
   private boolean canMove(Location location, Direction direction, char[][] grid) {
-    char nextVal = getValueFromLocation(location.next(direction), grid);
+    char nextVal = GridUtils.getValueFromLocation(location.next(direction), grid);
     if (direction == Direction.RIGHT) {
       return nextVal == 'J' || nextVal == '-' || nextVal == '7';
     } else if (direction == Direction.LEFT) {
