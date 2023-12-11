@@ -1,6 +1,8 @@
 package com.simmons.advent.grid;
 
 import com.simmons.advent.error.NaughtyException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GridUtils {
 
@@ -25,11 +27,9 @@ public class GridUtils {
   }
 
   public static char[][] copyGrid(char[][] grid) {
-    int rows = grid.length;
-    int cols = grid[0].length;
-    char[][] copy = new char[rows][cols];
-    for (int r = 0; r < rows; r++) {
-      for (int c = 0; c < cols; c++) {
+    char[][] copy = new char[rows(grid)][cols(grid)];
+    for (int r = 0; r < rows(grid); r++) {
+      for (int c = 0; c < cols(grid); c++) {
         copy[r][c] = grid[r][c];
       }
     }
@@ -37,13 +37,33 @@ public class GridUtils {
   }
 
   public static Location getStartLocation(char[][] grid, char startChar) {
-    for (int r = 0; r < grid.length; r++) {
-      for (int c = 0; c < grid[0].length; c++) {
+    for (int r = 0; r < rows(grid); r++) {
+      for (int c = 0; c < cols(grid); c++) {
         if (grid[r][c] == startChar) {
           return Location.of(r, c);
         }
       }
     }
     throw new NaughtyException("Uanble to find start location");
+  }
+
+  public static List<Location> getAllLocations(char[][] grid, char target) {
+    List<Location> locations = new ArrayList<>();
+    for (int r = 0; r < rows(grid); r++) {
+      for (int c = 0; c < cols(grid); c++) {
+        if (grid[r][c] == target) {
+          locations.add(Location.of(r, c));
+        }
+      }
+    }
+    return locations;
+  }
+
+  public static final int rows(char[][] grid) {
+    return grid.length;
+  }
+
+  public static final int cols(char[][] grid) {
+    return grid[0].length;
   }
 }

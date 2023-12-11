@@ -17,7 +17,8 @@ public abstract class AbstractDay implements Day {
     try {
       input =
           IOUtils.resourceToString(
-              resourcePath, Charset.defaultCharset(), AbstractDay.class.getClassLoader());
+                  resourcePath, Charset.defaultCharset(), AbstractDay.class.getClassLoader())
+              .strip();
     } catch (IOException e) {
       throw new NaughtyException("Unable to load resource", e);
     }
@@ -26,14 +27,12 @@ public abstract class AbstractDay implements Day {
   private void downloadInputIfNeeded(int year, int day, String resourcePath) {
     File file = Paths.get("src", "main", "resources", resourcePath).toFile();
     if (file.length() == 0) {
-      System.out.println(resourcePath + " is empty. Trying to download");
       try {
         InputDownloader.downloadInputToFile(year, day);
       } catch (NaughtyException e) {
-        System.out.println(e.getMessage());
+        // Do nothing for now
+        // System.out.println(e.getMessage());
       }
-    } else {
-      System.out.println("Input file already downloaded");
     }
   }
 

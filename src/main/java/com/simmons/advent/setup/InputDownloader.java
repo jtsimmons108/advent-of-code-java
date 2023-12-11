@@ -15,14 +15,18 @@ import org.apache.commons.io.FileUtils;
 
 public class InputDownloader {
 
+  private InputDownloader() {}
+
   public static final String AOC_COOKIE = "AOC_COOKIE";
 
   public static void downloadInputToFile(int year, int day) {
     ZonedDateTime current = ZonedDateTime.now(ZoneId.of("America/New_York"));
     String cookie = System.getenv(AOC_COOKIE);
     if (year > current.getYear() || (year == current.getYear() && day > current.getDayOfMonth())) {
-      throw new NaughtyException(String.format("Cannot download day in future: Day %d %d", day, year));
+      throw new NaughtyException(
+          String.format("Cannot download day in future: Day %d %d", day, year));
     }
+
     File file =
         Paths.get(
                 InputFileCreator.BASE_RESOURCE_PATH,
@@ -34,7 +38,7 @@ public class InputDownloader {
     }
 
     try {
-
+      System.out.println("Downloading file for Day " + day + " " + year);
       CookieHandler.setDefault(new CookieManager());
 
       HttpCookie sessionCookie = new HttpCookie("session", cookie);
