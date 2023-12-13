@@ -24,7 +24,7 @@ public class Day13_2023 extends AbstractDay {
   }
 
   public String solvePartTwo(String input) {
-    List<String> lines = InputUtils.getInputAsList(input);
+    List<String> lines = InputUtils.getInputAsList(input, "\n\n");
     long total = 0;
     for (String line : lines) {
       char[][] grid = InputUtils.getInputAsCharGrid(line);
@@ -81,7 +81,7 @@ public class Day13_2023 extends AbstractDay {
   }
 
   private int getReflectedRowAfterFixingHorizontalSmudge(char[][] grid) {
-    for (int r = 0; r < rows(grid); r++) {
+    for (int r = 1; r < rows(grid); r++) {
       if (hasSingleHorizontalSmudge(r, grid)) {
         return r;
       }
@@ -90,7 +90,7 @@ public class Day13_2023 extends AbstractDay {
   }
 
   private int getReflectedColAfterFixingVerticalSmudge(char[][] grid) {
-    for (int c = 0; c < cols(grid); c++) {
+    for (int c = 1; c < cols(grid); c++) {
       if (hasSingleVerticalSmudge(c, grid)) {
         return c;
       }
@@ -99,7 +99,6 @@ public class Day13_2023 extends AbstractDay {
   }
 
   private boolean hasSingleHorizontalSmudge(int row, char[][] grid) {
-    System.out.println("Checking for smudge in row " + row);
     int ROWS = rows(grid);
     int count = 0;
     for (int r = 0; r < row; r++) {
@@ -110,12 +109,10 @@ public class Day13_2023 extends AbstractDay {
         }
       }
     }
-    System.out.println("Reflecting over row " + row + " has " + count + " smudges");
     return count == 1;
   }
 
   private boolean hasSingleVerticalSmudge(int col, char[][] grid) {
-    System.out.println("Checking for smudge in col " + col);
     int COLS = cols(grid);
     int count = 0;
     for (int c = 0; c < col; c++) {
@@ -126,7 +123,6 @@ public class Day13_2023 extends AbstractDay {
         }
       }
     }
-    System.out.println("Reflecting over col " + col + " has " + count + " smudges");
     return count == 1;
   }
 }
