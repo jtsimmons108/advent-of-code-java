@@ -25,6 +25,16 @@ public class StringUtils {
     return builder.toString();
   }
 
+  public static String getRepeatedString(String value, int repetitions, String separator) {
+    StringBuilder builder = new StringBuilder(value.length() * repetitions + repetitions);
+    for (int i = 0; i < repetitions - 1; i++) {
+      builder.append(value);
+      builder.append(separator);
+    }
+    builder.append(value);
+    return builder.toString();
+  }
+
   public static Set<Character> getCommonCharacters(String... strings) {
     if (strings == null) {
       return Collections.EMPTY_SET;
