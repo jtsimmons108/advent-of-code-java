@@ -62,7 +62,6 @@ public class Day23_2022 extends AbstractDay {
 
   private boolean playRound(List<Elf> elves, int round) {
     Set<Point> currentLocations = elves.stream().map(Elf::getLocation).collect(Collectors.toSet());
-    ;
     Map<Point, List<Elf>> proposals = new HashMap<>();
     for (Elf elf : elves) {
       if (elf.canMove(currentLocations)) {
