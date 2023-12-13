@@ -42,8 +42,8 @@ public class Day23_2022 extends AbstractDay {
     List<String> lines = InputUtils.getInputAsList(input);
     List<Elf> elves = getElvesFromInput(lines);
     int round = 0;
-    while (playRound(elves, round++))
-      ;
+    while (playRound(elves, round++)) {}
+
     return String.valueOf(round);
   }
 
