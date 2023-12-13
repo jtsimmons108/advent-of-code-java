@@ -35,6 +35,23 @@ public class Day13_2023_Test extends DayTest {
   }
 
   public static Stream<Arguments> provideInputsForPart2() {
-    return Stream.of(Arguments.of("", ""));
+    return Stream.of(
+        Arguments.of(
+            "#.##..##.\n"
+                + "..#.##.#.\n"
+                + "##......#\n"
+                + "##......#\n"
+                + "..#.##.#.\n"
+                + "..##..##.\n"
+                + "#.#.##.#.\n"
+                + "\n"
+                + "#...##..#\n"
+                + "#....#..#\n"
+                + "..##..###\n"
+                + "#####.##.\n"
+                + "#####.##.\n"
+                + "..##..###\n"
+                + "#....#..#",
+            "400"));
   }
 }

@@ -26,6 +26,10 @@ public class GridUtils {
     return grid[location.row][location.col];
   }
 
+  public static void setValueAtLocation(Location location, char[][] grid, char value) {
+    grid[location.row][location.col] = value;
+  }
+
   public static char[][] copyGrid(char[][] grid) {
     char[][] copy = new char[rows(grid)][cols(grid)];
     for (int r = 0; r < rows(grid); r++) {

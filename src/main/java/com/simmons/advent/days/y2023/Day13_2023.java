@@ -26,7 +26,12 @@ public class Day13_2023 extends AbstractDay {
   public String solvePartTwo(String input) {
     List<String> lines = InputUtils.getInputAsList(input);
     long total = 0;
-    for (String line : lines) {}
+    for (String line : lines) {
+      char[][] grid = InputUtils.getInputAsCharGrid(line);
+      total +=
+          100 * getReflectedRowAfterFixingHorizontalSmudge(grid)
+              + getReflectedColAfterFixingVerticalSmudge(grid);
+    }
 
     return String.valueOf(total);
   }
@@ -73,5 +78,55 @@ public class Day13_2023 extends AbstractDay {
       }
     }
     return true;
+  }
+
+  private int getReflectedRowAfterFixingHorizontalSmudge(char[][] grid) {
+    for (int r = 0; r < rows(grid); r++) {
+      if (hasSingleHorizontalSmudge(r, grid)) {
+        return r;
+      }
+    }
+    return 0;
+  }
+
+  private int getReflectedColAfterFixingVerticalSmudge(char[][] grid) {
+    for (int c = 0; c < cols(grid); c++) {
+      if (hasSingleVerticalSmudge(c, grid)) {
+        return c;
+      }
+    }
+    return 0;
+  }
+
+  private boolean hasSingleHorizontalSmudge(int row, char[][] grid) {
+    System.out.println("Checking for smudge in row " + row);
+    int ROWS = rows(grid);
+    int count = 0;
+    for (int r = 0; r < row; r++) {
+      for (int c = 0; c < cols(grid); c++) {
+        int mirroredRow = row + (row - r - 1);
+        if (r < ROWS && mirroredRow < ROWS && grid[r][c] != grid[mirroredRow][c]) {
+          count++;
+        }
+      }
+    }
+    System.out.println("Reflecting over row " + row + " has " + count + " smudges");
+    return count == 1;
+  }
+
+  private boolean hasSingleVerticalSmudge(int col, char[][] grid) {
+    System.out.println("Checking for smudge in col " + col);
+    int COLS = cols(grid);
+    int count = 0;
+    for (int c = 0; c < col; c++) {
+      for (int r = 0; r < rows(grid); r++) {
+        int mirroredCol = col + (col - c - 1);
+        if (c < COLS && mirroredCol < COLS && grid[r][c] != grid[r][mirroredCol]) {
+          count++;
+        }
+      }
+    }
+    System.out.println("Reflecting over col " + col + " has " + count + " smudges");
+    return count == 1;
   }
 }
