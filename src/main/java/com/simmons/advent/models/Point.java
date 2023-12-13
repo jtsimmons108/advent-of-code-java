@@ -1,5 +1,8 @@
 package com.simmons.advent.models;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -26,6 +29,14 @@ public class Point {
 
   public long manhattanDistance(Point other) {
     return Math.abs(this.x - other.x) + Math.abs(this.y - other.y);
+  }
+
+  public Point next(Heading heading) {
+    return Point.of(this.x + heading.dx, this.y + heading.dy);
+  }
+
+  public List<Point> neighbors() {
+    return Arrays.stream(Heading.values()).map(this::next).collect(Collectors.toList());
   }
 
   public String toString() {
