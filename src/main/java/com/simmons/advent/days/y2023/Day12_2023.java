@@ -70,7 +70,7 @@ public class Day12_2023 extends AbstractDay {
       return 0;
     }
     char c = line.charAt(index);
-    State state = State.of(c, index, count, groups.toString());
+    State state = new State(c, index, count, groups.toString());
     if (CACHE.containsKey(state)) {
       return CACHE.get(state);
     }
@@ -91,17 +91,13 @@ public class Day12_2023 extends AbstractDay {
     CACHE.put(state, total);
     return total;
   }
-}
 
-@Data
-@AllArgsConstructor
-class State {
-  final char c;
-  final int index;
-  final int count;
-  String groups;
-
-  public static State of(char c, int index, int count, String groups) {
-    return new State(c, index, count, groups);
+  @Data
+  @AllArgsConstructor
+  class State {
+    final char c;
+    final int index;
+    final int count;
+    String groups;
   }
 }
