@@ -7,12 +7,20 @@ import java.util.List;
 public class GridUtils {
 
   public static void printGrid(char[][] grid) {
-    for (char[] line : grid) {
-      for (char c : line) {
-        System.out.print(c);
+    System.out.println(getAsString(grid));
+  }
+
+  public static String getAsString(char[][] grid) {
+    int ROWS = rows(grid);
+    int COLS = cols(grid);
+    StringBuilder builder = new StringBuilder(ROWS * COLS);
+    for (int r = 0; r < ROWS; r++) {
+      for (int c = 0; c < COLS; c++) {
+        builder.append(grid[r][c]);
       }
-      System.out.println();
+      builder.append('\n');
     }
+    return builder.toString();
   }
 
   public static boolean isValidLocation(Location location, char[][] grid) {
