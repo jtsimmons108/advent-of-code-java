@@ -43,9 +43,7 @@ public class Day14_2023 extends AbstractDay {
     int cycleStart = startingGrids.indexOf(current);
     int cycleLength = startingGrids.size() - cycleStart;
     int finalEnd = (TARGET - cycleStart) % cycleLength + cycleStart;
-
-    String finalString = startingGrids.get(finalEnd);
-    char[][] finalGrid = InputUtils.getInputAsCharGrid(finalString);
+    char[][] finalGrid = InputUtils.getInputAsCharGrid(startingGrids.get(finalEnd));
 
     return String.valueOf(getSupportScore(finalGrid));
   }
