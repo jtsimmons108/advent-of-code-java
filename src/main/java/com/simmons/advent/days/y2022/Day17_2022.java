@@ -6,11 +6,10 @@ import com.simmons.advent.days.model.AbstractDay;
 import com.simmons.advent.error.NaughtyException;
 import com.simmons.advent.grid.Direction;
 import com.simmons.advent.grid.Location;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 public class Day17_2022 extends AbstractDay {
   public static final int LEFT_START = 2;
@@ -26,6 +25,8 @@ public class Day17_2022 extends AbstractDay {
 
   public static final Direction GRID_DOWN = UP; // Inverted from normal grid
 
+  public static final long TARGET = 1000000000000L;
+
   public Day17_2022() {
     super(2022, 17);
   }
@@ -34,10 +35,16 @@ public class Day17_2022 extends AbstractDay {
     String jetStream = input;
     int step = 0;
     List<Rock> rocks = new ArrayList<>();
-    Set<Location> resting = new HashSet<>();
-    for (int col = 0; col < 7; col++) {
-      resting.add(Location.of(-1, col));
-    }
+    Set<Location> resting =
+        new HashSet<>(
+            List.of( // Put in a floor
+                Location.of(-1, 0),
+                Location.of(-1, 1),
+                Location.of(-1, 2),
+                Location.of(-1, 3),
+                Location.of(-1, 4),
+                Location.of(-1, 5),
+                Location.of(-1, 6)));
 
     for (int piece = 0; piece < 2022; piece++) {
       int startHeight = getHeight(resting) + 1 + 3;
@@ -63,22 +70,41 @@ public class Day17_2022 extends AbstractDay {
     return String.valueOf(height);
   }
 
-  // Solved manually for now. Will code a solution later.
-
   public String solvePartTwo(String input) {
     String jetStream = input;
-    int step = 0;
-    int patternStep = 0;
     List<Rock> rocks = new ArrayList<>();
-    Set<Location> resting = new HashSet<>();
-    for (int col = 0; col < 7; col++) {
-      resting.add(Location.of(-1, col));
-    }
+    Set<Location> resting =
+        new HashSet<>(
+            List.of( // Put in a floor
+                Location.of(-1, 0),
+                Location.of(-1, 1),
+                Location.of(-1, 2),
+                Location.of(-1, 3),
+                Location.of(-1, 4),
+                Location.of(-1, 5),
+                Location.of(-1, 6)));
 
-    for (int piece = 0; piece < 10000; piece++) {
+    List<Integer> stageHeights = new ArrayList<>();
+    Map<State, List<Integer>> statePieces = new HashMap<>();
+    Map<State, List<Integer>> stateHeights = new HashMap<>();
+    State prevState = null, currState = null;
+
+    int step = 0;
+    int piece = 0;
+    boolean found = false;
+    while (!found) {
       int startHeight = getHeight(resting) + 1 + 3;
-      Rock nextRock = getNextPiece(piece, startHeight);
+      Rock nextRock = getNextPiece(piece++, startHeight);
       rocks.add(nextRock);
+      prevState = currState;
+      currState = new State(nextRock.getClass(), step % jetStream.length());
+
+      List<Integer> pieces = statePieces.computeIfAbsent(currState, k -> new ArrayList<>());
+      pieces.add(piece);
+      if (pieces.size() == 2 && statePieces.get(prevState).size() == 2) {
+        found = true;
+      }
+
       boolean canFall = true;
       while (canFall) {
         char move = jetStream.charAt(step++ % jetStream.length());
@@ -93,15 +119,25 @@ public class Day17_2022 extends AbstractDay {
       }
       resting.addAll(nextRock.squares);
       int height = getHeight(resting);
-
-      if ((piece - 1755) % 1745 == 0 || (piece - 1755) % 1745 == 1000) {
-        System.out.printf("After height %d tallest height is %d%n", piece, height);
-      }
+      stateHeights.computeIfAbsent(currState, k -> new ArrayList<>()).add(height);
+      stageHeights.add(height);
     }
 
-    int height = getHeight(resting) + 1;
+    List<Integer> pieces = statePieces.get(currState);
+    List<Integer> heights = stateHeights.get(currState);
 
-    return String.valueOf(height);
+    int startPiece = pieces.get(0);
+    int startHeight = heights.get(0);
+
+    int deltaPiece = pieces.get(1) - pieces.get(0);
+    int deltaHeight = heights.get(1) - heights.get(0);
+
+    long missingCycles = (TARGET - startPiece) / deltaPiece;
+    long heightAtStartOfCycle = startHeight + missingCycles * deltaHeight;
+    int remainingPieces = (int) (TARGET - (startPiece + missingCycles * deltaPiece));
+    long finalHeight =
+        heightAtStartOfCycle + stageHeights.get(startPiece + remainingPieces) - startHeight;
+    return String.valueOf(finalHeight);
   }
 
   private int getHeight(Set<Location> resting) {
@@ -140,6 +176,13 @@ public class Day17_2022 extends AbstractDay {
       default:
         throw new NaughtyException("Should never try to create a different rock");
     }
+  }
+
+  @Data
+  @AllArgsConstructor
+  class State {
+    Class rockType;
+    int jetStreamStep;
   }
 
   abstract class Rock {
