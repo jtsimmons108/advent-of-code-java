@@ -14,10 +14,34 @@ public class Day16_2023_Test extends DayTest {
   }
 
   public static Stream<Arguments> provideInputsForPart1() {
-    return Stream.of(Arguments.of("", ""));
+    return Stream.of(
+        Arguments.of(
+            ".|...\\....\n"
+                + "|.-.\\.....\n"
+                + ".....|-...\n"
+                + "........|.\n"
+                + "..........\n"
+                + ".........\\\n"
+                + "..../.\\\\..\n"
+                + ".-.-/..|..\n"
+                + ".|....-|.\\\n"
+                + "..//.|....",
+            "46"));
   }
 
   public static Stream<Arguments> provideInputsForPart2() {
-    return Stream.of(Arguments.of("", ""));
+    return Stream.of(
+        Arguments.of(
+            ".|...\\....\n"
+                + "|.-.\\.....\n"
+                + ".....|-...\n"
+                + "........|.\n"
+                + "..........\n"
+                + ".........\\\n"
+                + "..../.\\\\..\n"
+                + ".-.-/..|..\n"
+                + ".|....-|.\\\n"
+                + "..//.|....",
+            "51"));
   }
 }
