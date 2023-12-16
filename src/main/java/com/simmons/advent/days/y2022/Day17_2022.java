@@ -133,8 +133,8 @@ public class Day17_2022 extends AbstractDay {
     int deltaHeight = heights.get(1) - heights.get(0);
 
     long missingCycles = (TARGET - startPiece) / deltaPiece;
+    int remainingPieces = (int) ((TARGET - startPiece) % deltaPiece);
     long heightAtStartOfCycle = startHeight + missingCycles * deltaHeight;
-    int remainingPieces = (int) (TARGET - (startPiece + missingCycles * deltaPiece));
     long finalHeight =
         heightAtStartOfCycle + stageHeights.get(startPiece + remainingPieces) - startHeight;
     return String.valueOf(finalHeight);

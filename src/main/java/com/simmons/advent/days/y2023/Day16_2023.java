@@ -1,6 +1,9 @@
 package com.simmons.advent.days.y2023;
 
 import com.simmons.advent.days.model.AbstractDay;
+import com.simmons.advent.utils.InputUtils;
+
+import java.util.List;
 
 public class Day16_2023 extends AbstractDay {
 
@@ -9,10 +12,22 @@ public class Day16_2023 extends AbstractDay {
   }
 
   public String solvePartOne(String input) {
-    return null;
+    List<String> lines = InputUtils.getInputAsList(input);
+    long total = 0;
+    for (String line : lines){
+
+    }
+
+    return String.valueOf(total);
   }
 
   public String solvePartTwo(String input) {
-    return null;
+    List<String> lines = InputUtils.getInputAsList(input);
+    long total = 0;
+    for (String line : lines){
+
+    }
+
+    return String.valueOf(total);
   }
 }
