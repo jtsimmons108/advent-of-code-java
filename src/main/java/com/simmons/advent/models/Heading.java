@@ -23,7 +23,7 @@ public enum Heading {
           List.of(WEST, SOUTHWEST, NORTHWEST),
           EAST,
           List.of(EAST, NORTHEAST, SOUTHEAST));
-  final int dx, dy;
+  public final int dx, dy;
 
   Heading(int dx, int dy) {
     this.dx = dx;
