@@ -19,7 +19,6 @@ public class Day19_2023 extends AbstractDay {
 
   public static final String ACCEPTED = "A";
   public static final String REJECTED = "R";
-
   public static final String INPUT_FLOW = "in";
 
   public Day19_2023() {
@@ -106,7 +105,6 @@ public class Day19_2023 extends AbstractDay {
           long combinations = splitParts.first().getTotalCountFromRanges();
           total += combinations;
         } else if (!REJECTED.equals(rule.returnFlow)) {
-
           total += workFlowMap.get(rule.returnFlow).process(splitParts.first(), workFlowMap);
         }
         current = splitParts.second();
@@ -145,40 +143,23 @@ public class Day19_2023 extends AbstractDay {
       if (op == 0) {
         return new Tuple2<>(partRange, null);
       } else {
-        Range xAccepted,
-            xRejected,
-            mAccepted,
-            mRejected,
-            aAccepted,
-            aRejected,
-            sAccepted,
-            sRejected;
-        xAccepted = xRejected = partRange.getRange('x');
-        mAccepted = mRejected = partRange.getRange('m');
-        aAccepted = aRejected = partRange.getRange('a');
-        sAccepted = sRejected = partRange.getRange('s');
-        if (testVal == 'x') {
-          Tuple2<Range, Range> ranges = getAdjustedRanges(xAccepted, test, op == '<');
-          xAccepted = ranges.first();
-          xRejected = ranges.second();
-        } else if (testVal == 'm') {
-          Tuple2<Range, Range> ranges = getAdjustedRanges(mAccepted, test, op == '<');
-          mAccepted = ranges.first();
-          mRejected = ranges.second();
-        } else if (testVal == 'a') {
-          Tuple2<Range, Range> ranges = getAdjustedRanges(aAccepted, test, op == '<');
-          aAccepted = ranges.first();
-          aRejected = ranges.second();
-        } else {
-          Tuple2<Range, Range> ranges = getAdjustedRanges(sAccepted, test, op == '<');
-          sAccepted = ranges.first();
-          sRejected = ranges.second();
-        }
+        Tuple2<Range, Range> xRanges = getRangesForPart(partRange, 'x');
+        Tuple2<Range, Range> mRanges = getRangesForPart(partRange, 'm');
+        Tuple2<Range, Range> aRanges = getRangesForPart(partRange, 'a');
+        Tuple2<Range, Range> sRanges = getRangesForPart(partRange, 's');
 
         return new Tuple2<>(
-            new PartRange(xAccepted, mAccepted, aAccepted, sAccepted),
-            new PartRange(xRejected, mRejected, aRejected, sRejected));
+            new PartRange(xRanges.first(), mRanges.first(), aRanges.first(), sRanges.first()),
+            new PartRange(xRanges.second(), mRanges.second(), aRanges.second(), sRanges.second()));
       }
+    }
+
+    private Tuple2<Range, Range> getRangesForPart(PartRange partRange, char val) {
+      Range startRange = partRange.getRange(val);
+      if (val == testVal) {
+        return getAdjustedRanges(startRange, test, op == '<');
+      }
+      return new Tuple2<>(startRange, startRange);
     }
 
     private Tuple2<Range, Range> getAdjustedRanges(Range range, long val, boolean lessThan) {
