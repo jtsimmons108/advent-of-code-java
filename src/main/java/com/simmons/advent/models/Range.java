@@ -32,6 +32,10 @@ public class Range implements Comparable<Range> {
     return this.start <= other.start && other.end <= this.end;
   }
 
+  public boolean intersects(Range other) {
+    return other.contains(this.start) || this.contains(other.start);
+  }
+
   public long length() {
     return end - start;
   }
