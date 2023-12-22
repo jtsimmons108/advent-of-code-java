@@ -3,9 +3,11 @@ package com.simmons.advent.grid;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Location {
   public final int row;
   public final int col;

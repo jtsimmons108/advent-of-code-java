@@ -25,10 +25,13 @@ public class Day20_2023_Test extends DayTest {
   }
 
   public static Stream<Arguments> provideInputsForPart2() {
-    return Stream.of(Arguments.of("broadcaster -> a\n"
-            + "%a -> inv, con\n"
-            + "&inv -> b\n"
-            + "%b -> con\n"
-            + "&con -> output", ""));
+    return Stream.of(
+        Arguments.of(
+            "broadcaster -> a\n"
+                + "%a -> inv, con\n"
+                + "&inv -> b\n"
+                + "%b -> con\n"
+                + "&con -> output",
+            ""));
   }
 }

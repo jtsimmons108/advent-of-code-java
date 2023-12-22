@@ -9,5 +9,5 @@ Mono repo for all years advent of code (Not all days currently in this repo)
 - `2019 - 32 *`
 - `2020 - 50 *`
 - `2021 - 42 *`
-- `2022 - 40 *`
-- `2023 - 30 *`
+- `2022 - 42 *`
+- `2023 - 42 *`
